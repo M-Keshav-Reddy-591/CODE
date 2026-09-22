@@ -1,0 +1,3 @@
+package com.example.orderprocessing.config;
+import com.example.orderprocessing.entity.Product; import com.example.orderprocessing.repository.ProductRepository; import org.springframework.boot.CommandLineRunner; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.Configuration;
+@Configuration public class SeedData { @Bean CommandLineRunner seed(ProductRepository repo){return args->{if(repo.count()==0){repo.save(new Product("SKU-LAP-001","Laptop",10,1299));repo.save(new Product("SKU-KEY-001","Keyboard",50,89));repo.save(new Product("SKU-MOU-001","Mouse",100,29));repo.save(new Product("SKU-MON-001","Monitor",20,399));repo.save(new Product("SKU-HEA-001","Headphones",30,149));}};} }
