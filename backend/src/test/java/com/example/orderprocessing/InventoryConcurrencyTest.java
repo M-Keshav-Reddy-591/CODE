@@ -20,7 +20,7 @@ class InventoryConcurrencyTest {
 
   @Test
   void inventoryNeverBecomesNegativeUnderConcurrentReservations() throws Exception {
-    Product product = products.save(new Product("TEST-CONCURRENCY", "Test product", 10, 1));
+    Product product = products.save(new Product("TEST-CONCURRENCY-" + System.nanoTime(), "Test product", 10, 1));
     for (int i = 0; i < 100; i++) orderService.create(new OrderRequest("Concurrency test", product.getId(), 1));
     Thread.sleep(3000);
     Product result = products.findById(product.getId()).orElseThrow();

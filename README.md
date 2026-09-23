@@ -4,7 +4,7 @@ A runnable Spring Boot and React demonstration of concurrent order processing wi
 
 ## Architecture
 
-- `backend/`: Java 17, Spring Boot 3, Spring Data JPA, validation, Actuator, H2 by default, PostgreSQL-compatible configuration.
+- `backend/`: Java 17, Spring Boot 3, Spring Data JPA, validation, Actuator, and MySQL persistence.
 - `frontend/`: React + Vite, Recharts, Axios, and a responsive operations dashboard. Material UI is included for extending the component surface.
 - Live updates use Server-Sent Events at `GET /api/orders/events`.
 
@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`. The default database is a file-backed H2 database at `backend/data/orders`. For PostgreSQL, set `DB_URL`, `DB_USER`, and `DB_PASSWORD` before starting Spring Boot.
+Open `http://localhost:5173`. The backend connects to local MySQL at `localhost:3306` using database `orders`, user `root`, and no password. The database is created automatically when MySQL allows it. Override `DB_URL`, `DB_USER`, and `DB_PASSWORD` when needed.
 
 ## APIs
 

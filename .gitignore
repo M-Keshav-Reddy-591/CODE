@@ -1,7 +1,7 @@
 # Java/Maven build output
 backend/target/
 
-# Local H2 database files
+# Local database runtime files
 backend/data/
 
 # Frontend dependencies and build output

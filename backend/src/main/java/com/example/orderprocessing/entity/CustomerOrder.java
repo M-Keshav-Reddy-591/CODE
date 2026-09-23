@@ -17,6 +17,10 @@ public class CustomerOrder {
   public CustomerOrder(String number,String customer,Product product,int quantity){this.orderNumber=number;this.customerName=customer;this.product=product;this.quantity=quantity;}
   public void processing(){status=OrderStatus.PROCESSING;processingStartedAt=Instant.now();updatedAt=Instant.now();}
   public void complete(){status=OrderStatus.COMPLETED;completedAt=Instant.now();updatedAt=Instant.now();}
+  public void confirm(){if(status!=OrderStatus.PENDING)throw new IllegalStateException("Only pending orders can be confirmed");status=OrderStatus.CONFIRMED;updatedAt=Instant.now();}
+  public void ship(){if(status!=OrderStatus.COMPLETED && status!=OrderStatus.PROCESSING)throw new IllegalStateException("Only processed orders can be shipped");status=OrderStatus.SHIPPED;updatedAt=Instant.now();}
+  public void deliver(){if(status!=OrderStatus.SHIPPED)throw new IllegalStateException("Only shipped orders can be delivered");status=OrderStatus.DELIVERED;updatedAt=Instant.now();}
+  public void cancel(){if(status==OrderStatus.DELIVERED||status==OrderStatus.CANCELLED)throw new IllegalStateException("Order cannot be cancelled");status=OrderStatus.CANCELLED;updatedAt=Instant.now();}
   public void outOfStock(){status=OrderStatus.OUT_OF_STOCK;failureReason="Insufficient inventory";updatedAt=Instant.now();}
   public void fail(String reason){retryCount++;failureReason=reason;status=retryCount>=3?OrderStatus.DEAD_LETTER:OrderStatus.RETRYING;updatedAt=Instant.now();}
   public void retry(){status=OrderStatus.PENDING;failureReason=null;updatedAt=Instant.now();}
